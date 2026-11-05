@@ -2,6 +2,12 @@ import { readDb, writeDb } from "../db.js"
 
 import { criarTask } from "../models/taskModel.js"
 
+function tarefaNaoEncontrada() {
+    const erro = new Error('Tarefa não encontrada');
+    erro.status = 404;
+    return erro;
+}
+
 export async function listarTasks(status) {
     const tasks = await readDb()
 
@@ -22,9 +28,7 @@ export async function buscarTask(id) {
     const tasks = await readDb();
     const task = tasks.find((t) => t.id === id);
     if (!task) {
-        const erro = new Error('Tasks não encontrada');
-        erro.status = 404;
-        throw erro;
+        throw tarefaNaoEncontrada()
     }
     return task;
 }
@@ -41,4 +45,33 @@ export async function criarNovaTask(dados) {
     await writeDb(tasks)
 
     return task
+}
+
+export async function atualizarTask(id, dados) {
+    const tasks = await readDb()
+
+    const indice = tasks.findIndex((t) => t.id === id)
+
+    if (indice === -1) {
+        throw tarefaNaoEncontrada()
+    }
+
+    tasks[indice] = { ...tasks[indice], ...dados, id: id, criadaEm: tasks[indice].criadaEm }
+
+    await writeDb(tasks)
+
+    return tasks[indice]
+}
+
+export async function removerTask(id) {
+    const tasks = await readDb()
+
+    const indice = tasks.findIndex((t) => t.id === id)
+
+    if (indice === -1) {
+        throw tarefaNaoEncontrada()
+    }
+
+    tasks.splice(indice, 1)
+    await writeDb(tasks)
 }
