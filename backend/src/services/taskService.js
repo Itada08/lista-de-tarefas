@@ -1,8 +1,9 @@
-import { readDb } from "../db.js"
+import { readDb, writeDb } from "../db.js"
+
+import { criarTask } from "../models/taskModel.js"
 
 export async function listarTasks(status) {
     const tasks = await readDb()
-
 
     if (status === "concluidas") {
         const task = tasks.filter((t) => t.concluida === true);
@@ -28,3 +29,16 @@ export async function buscarTask(id) {
     return task;
 }
 
+export async function criarNovaTask(dados) {
+    const tasks = await readDb()
+
+    const ids = tasks.map((t) => t.id);
+    const proximoId = Math.max(0, ...ids) + 1;
+
+    const task = criarTask(dados, proximoId)
+
+    tasks.push(task)
+    await writeDb(tasks)
+
+    return task
+}
