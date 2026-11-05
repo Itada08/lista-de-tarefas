@@ -1,4 +1,4 @@
-export function criarTask({titulo, descricao = ""}, id) {
+export function criarTask({ titulo, descricao = "" }, id) {
     return {
         id,
         titulo,
