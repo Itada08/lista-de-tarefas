@@ -1,0 +1,71 @@
+:root {
+  --bg: #f3f1ec;
+  --card: #ffffff;
+  --ink: #1f2a37;
+  --muted: #6b7280;
+  --line: #d9d6cd;
+  --accent: #1d4ed8;
+  --danger: #b42318;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+}
+
+.container { max-width: 640px; margin: 0 auto; padding: 24px 16px 48px; }
+h1 { font-size: 1.75rem; margin: 0 0 20px; }
+
+button, input { font: inherit; }
+input {
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--card);
+  color: var(--ink);
+}
+button {
+  padding: 7px 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--card);
+  color: var(--ink);
+  cursor: pointer;
+}
+button:hover { border-color: var(--ink); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+button.danger { color: var(--danger); }
+
+.form { display: flex; gap: 8px; flex-wrap: wrap; }
+.form input { flex: 1 1 160px; }
+
+.filter { display: flex; gap: 6px; margin: 16px 0; flex-wrap: wrap; }
+.filter button.active { background: var(--ink); border-color: var(--ink); color: #fff; }
+
+.list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 12px 14px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.item.editing input { flex: 1 1 160px; }
+.item .text { flex: 1 1 200px; min-width: 0; overflow-wrap: anywhere; }
+.item p { margin: 2px 0 0; color: var(--muted); }
+.done strong, .done p { text-decoration: line-through; color: var(--muted); }
+.actions { display: flex; gap: 6px; flex-wrap: wrap; }
+
+.error { padding: 10px 12px; border-radius: 6px; background: #fde8e6; color: var(--danger); }
+.empty { color: var(--muted); text-align: center; margin-top: 24px; }
